@@ -411,6 +411,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3433680564448705533, guid: e9f248c0040a61448b4a2b117a53fef0, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3433680564448705534, guid: e9f248c0040a61448b4a2b117a53fef0, type: 3}
       propertyPath: m_Name
       value: BouncyBall
