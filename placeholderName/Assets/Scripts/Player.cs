@@ -29,7 +29,6 @@ public class Player : MonoBehaviour
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
-
         if (jumpKeyPressed && touchingGround)
         {
             rbComponent.AddForce(new Vector3(0, 10, 0), ForceMode.VelocityChange);
