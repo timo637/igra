@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private float horizontalInput;
     private Rigidbody rbComponent;
     private bool touchingGround;
+    private int sprinting;
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +32,20 @@ public class Player : MonoBehaviour
     {
         if (jumpKeyPressed && touchingGround)
         {
-            rbComponent.AddForce(new Vector3(0, 10, 0), ForceMode.VelocityChange);
+            rbComponent.AddForce(new Vector3(0, 7, 0), ForceMode.VelocityChange);
             jumpKeyPressed = false;
         }
 
-        rbComponent.velocity = new Vector3(3*horizontalInput, rbComponent.velocity.y, rbComponent.velocity.z);
+        if (Input.GetKey("left shift"))
+        {
+            sprinting = 10;
+        }
+        else
+        {
+            sprinting = 5;
+        }
+
+        rbComponent.velocity = new Vector3(sprinting * horizontalInput, rbComponent.velocity.y, sprinting * rbComponent.velocity.z);
     }
 
     private void OnCollisionEnter(Collision collision)
