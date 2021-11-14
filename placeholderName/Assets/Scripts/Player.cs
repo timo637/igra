@@ -7,8 +7,10 @@ public class Player : MonoBehaviour
     private bool jumpKeyPressed = false;
     private float horizontalInput;
     private Rigidbody rbComponent;
+    // POPRAVI da bo res, sedaj je touchingAnything
     private bool touchingGround;
-    private int sprinting;
+    private int characterVelocity = 5;
+    private bool crouching = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,35 +21,61 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // left-right movement
         horizontalInput = Input.GetAxis("Horizontal");
 
+        // jumping
         if (Input.GetKeyDown("w") && touchingGround)
         {
             jumpKeyPressed = true;
+        }
+
+        // crouching and character velocity
+        if (Input.GetKey("s"))
+        {
+            crouching = true;
+            characterVelocity = 2;
+        }
+        else
+        {
+            crouching = false;
+
+            if (Input.GetKey("left shift") && touchingGround)
+            {
+                characterVelocity = 10;
+            }
+            else
+            {
+                characterVelocity = 5;
+            }
         }
     }
 
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
+        // jumping
         if (jumpKeyPressed && touchingGround)
         {
             rbComponent.AddForce(new Vector3(0, 7, 0), ForceMode.VelocityChange);
             jumpKeyPressed = false;
         }
 
-        if (Input.GetKey("left shift"))
+        // sprinting
+        rbComponent.velocity = new Vector3(characterVelocity * horizontalInput, rbComponent.velocity.y, rbComponent.velocity.z);
+
+        // crouching (POGLEJ ZA POCEP DOL)
+        if (crouching)
         {
-            sprinting = 10;
+            transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {
-            sprinting = 5;
+            transform.localScale = new Vector3(1, 2, 1);
         }
-
-        rbComponent.velocity = new Vector3(sprinting * horizontalInput, rbComponent.velocity.y, sprinting * rbComponent.velocity.z);
     }
 
+    // POPRAVI
     private void OnCollisionEnter(Collision collision)
     {
         touchingGround = true;
@@ -56,5 +84,11 @@ public class Player : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         touchingGround = false;
+    }
+
+    // pobiranje stvari
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
     }
 }
