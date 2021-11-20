@@ -31,6 +31,11 @@ public class Player : MonoBehaviour
         }
 
         // crouching and character velocity
+        if (Input.GetKeyDown("s"))
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.5f, transform.localPosition.z);
+        }
+
         if (Input.GetKey("s"))
         {
             crouching = true;
@@ -73,17 +78,6 @@ public class Player : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 2, 1);
         }
-    }
-
-    // POPRAVI
-    private void OnCollisionEnter(Collision collision)
-    {
-        touchingGround = true;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        touchingGround = false;
     }
 
     // pobiranje stvari
