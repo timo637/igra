@@ -32,22 +32,24 @@ public class Player : MonoBehaviour
             jumpKeyPressed = true;
         }
 
-        // crouching and character velocity
-        if (Input.GetKeyDown("s"))
+        if (touchingGround)
         {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.5f, transform.localPosition.z);
-        }
-
-        if (Input.GetKey("s"))
-        {
-            crouching = true;
-            characterVelocity = 2;
-        }
-        else
-        {
-            crouching = false;
-
-            if (Input.GetKey("left shift") && touchingGround)
+            // crouching position transform
+            if (Input.GetKeyDown("s"))
+            {
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.5f, transform.localPosition.z);
+            }
+            // sprinting
+            if (Input.GetKey("left shift"))
+            {
+                characterVelocity = 10;
+            }
+            // velocities
+            if (Input.GetKey("s"))
+            {
+                characterVelocity = 2;
+            }
+            else if (Input.GetKey("left shift"))
             {
                 characterVelocity = 10;
             }
@@ -55,6 +57,16 @@ public class Player : MonoBehaviour
             {
                 characterVelocity = 5;
             }
+        }
+
+        // crouching
+        if (Input.GetKey("s"))
+        {
+            crouching = true;
+        }
+        else
+        {
+            crouching = false;
         }
     }
 
