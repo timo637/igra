@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Transform checkTouchingGround = null;
+    [SerializeField] private LayerMask playerMask;
+
     private bool jumpKeyPressed = false;
     private float horizontalInput;
     private Rigidbody rbComponent;
-    // POPRAVI da bo res, sedaj je touchingAnything
     private bool touchingGround;
     private int characterVelocity = 5;
     private bool crouching = false;
@@ -59,6 +61,15 @@ public class Player : MonoBehaviour
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
+        if (Physics.OverlapSphere(checkTouchingGround.position, 0.1f, playerMask).Length > 0)
+        {
+            touchingGround = true;
+        }
+        else
+        {
+            touchingGround = false;
+        }
+
         // jumping
         if (jumpKeyPressed && touchingGround)
         {
@@ -69,7 +80,7 @@ public class Player : MonoBehaviour
         // sprinting
         rbComponent.velocity = new Vector3(characterVelocity * horizontalInput, rbComponent.velocity.y, rbComponent.velocity.z);
 
-        // crouching (POGLEJ ZA POCEP DOL)
+        // crouching
         if (crouching)
         {
             transform.localScale = new Vector3(1, 1, 1);
