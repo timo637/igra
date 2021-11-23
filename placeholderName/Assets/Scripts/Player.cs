@@ -104,20 +104,14 @@ public class Player : MonoBehaviour
         }
 
         // ladder climbing
-        if (LadderClimbing == true) 
+        if (LadderClimbing == true && Input.GetKey("w")) 
         {
-            rbComponent.AddForce(new Vector3(0, 0.25f, 0), ForceMode.VelocityChange);
+            rbComponent.AddForce(new Vector3(0, 0.3f, 0), ForceMode.VelocityChange);
         }
     }
 
     // pregleda èe se dotikaš lestve
-    private void OnTriggerEnter(Collider other)
-    {
-        LadderClimbing = true;
-    }
+    private void OnTriggerEnter(Collider other) => LadderClimbing = true;
 
-    private void OnTriggerExit(Collider other)
-    {
-        LadderClimbing = false;
-    }
+    private void OnTriggerExit(Collider other) => LadderClimbing = false;
 }
