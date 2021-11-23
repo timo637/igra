@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private bool jumpKeyPressed = false;
     private bool crouching = false;
     private bool touchingGround;
+    private bool LadderClimbing;
     private float horizontalInput;
     private int characterVelocity = 5;
 
@@ -101,11 +102,22 @@ public class Player : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 2, 1);
         }
+
+        // ladder climbing
+        if (LadderClimbing == true) 
+        {
+            rbComponent.AddForce(new Vector3(0, 0.25f, 0), ForceMode.VelocityChange);
+        }
     }
 
-    // pobiranje stvari
+    // pregleda èe se dotikaš lestve
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        LadderClimbing = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        LadderClimbing = false;
     }
 }
