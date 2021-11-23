@@ -7,12 +7,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform checkTouchingGround = null;
     [SerializeField] private LayerMask playerMask;
 
-    private bool jumpKeyPressed = false;
-    private float horizontalInput;
     private Rigidbody rbComponent;
-    private bool touchingGround;
-    private int characterVelocity = 5;
+    private bool jumpKeyPressed = false;
     private bool crouching = false;
+    private bool touchingGround;
+    private float horizontalInput;
+    private int characterVelocity = 5;
 
     // Start is called before the first frame update
     void Start()
