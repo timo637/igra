@@ -65,6 +65,10 @@ public class Player : MonoBehaviour
         {
             crouching = true;
         }
+        else if (LadderClimbing == true)
+        {
+            crouching = false;
+        }
         else
         {
             crouching = false;
@@ -104,9 +108,29 @@ public class Player : MonoBehaviour
         }
 
         // ladder climbing
-        if (LadderClimbing == true && Input.GetKey("w")) 
+        if (LadderClimbing == true && Input.GetKey("w"))
         {
-            rbComponent.AddForce(new Vector3(0, 0.3f, 0), ForceMode.VelocityChange);
+            if (Input.GetKey("a"))
+            {
+                rbComponent.velocity = new Vector3(-3, 0, 0);
+            }
+
+            rbComponent.velocity = new Vector3(0, 3, 0);
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        else if (LadderClimbing == true && Input.GetKey("s"))
+        {
+            rbComponent.velocity = new Vector3(0, -3, 0);
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        else if (LadderClimbing == true)
+        {
+            rbComponent.velocity = new Vector3(0, 0, 0);
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        else 
+        {
+            GetComponent<Rigidbody>().useGravity = true;
         }
     }
 
