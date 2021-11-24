@@ -108,19 +108,50 @@ public class Player : MonoBehaviour
         }
 
         // ladder climbing
-        if (LadderClimbing == true && Input.GetKey("w"))
+        // gor in levo/desno
+        if (LadderClimbing == true && Input.GetKey("w") && Input.GetKey("d"))
         {
-            if (Input.GetKey("a"))
-            {
-                rbComponent.velocity = new Vector3(-3, 0, 0);
-            }
-
+            rbComponent.velocity = new Vector3(1, 3, 0);
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        else if (LadderClimbing == true && Input.GetKey("w") && Input.GetKey("a"))
+        {
+            rbComponent.velocity = new Vector3(-1, 3, 0);
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        // dol in levo/desno
+        else if (LadderClimbing == true && Input.GetKey("s") && Input.GetKey("d"))
+        {
+            rbComponent.velocity = new Vector3(1, -3, 0);
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        else if (LadderClimbing == true && Input.GetKey("s") && Input.GetKey("a"))
+        {
+            rbComponent.velocity = new Vector3(-1, -3, 0);
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        // gor
+        else if (LadderClimbing == true && Input.GetKey("w"))
+        {
             rbComponent.velocity = new Vector3(0, 3, 0);
             GetComponent<Rigidbody>().useGravity = false;
         }
+        // dol
         else if (LadderClimbing == true && Input.GetKey("s"))
         {
             rbComponent.velocity = new Vector3(0, -3, 0);
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        // desno na lestvi
+        else if (LadderClimbing == true && Input.GetKey("d"))
+        {
+            rbComponent.velocity = new Vector3(1, 0, 0);
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        // levo na lestvi
+        else if (LadderClimbing == true && Input.GetKey("a"))
+        {
+            rbComponent.velocity = new Vector3(-1, 0, 0);
             GetComponent<Rigidbody>().useGravity = false;
         }
         else if (LadderClimbing == true)
