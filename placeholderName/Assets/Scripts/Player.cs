@@ -61,13 +61,13 @@ public class Player : MonoBehaviour
         }
 
         // crouching
-        if (Input.GetKey("s"))
-        {
-            crouching = true;
-        }
-        else if (LadderClimbing == true)
+        if (Input.GetKey("s") && LadderClimbing == true)
         {
             crouching = false;
+        }
+        else if (Input.GetKey("s"))
+        {
+            crouching = true;
         }
         else
         {
