@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
-        if (Physics.OverlapBox(checkTouchingGround.position, new Vector3(0.5f, 0.05f, 0.1f), new Quaternion(1,0,0,0), playerMask).Length > 0)
+        if (Physics.OverlapBox(checkTouchingGround.position, new Vector3(0.4999f, 0.05f, 0.1f), new Quaternion(1,0,0,0), playerMask).Length > 0)
         {
             touchingGround = true;
         }
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
             touchingGround = false;
         }
 
-        if (Physics.OverlapBox(checkTouchingLadder.position, new Vector3(0.51f, 0.5f, 0.1f), new Quaternion(1,0,0,0), playerMask).Length > 0)
+        if (Physics.OverlapBox(checkTouchingLadder.position, new Vector3(0.5f, 0.5f, 0.1f), new Quaternion(1,0,0,0), playerMask).Length > 0)
         {
             LadderClimbing = true;
         }
@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
             jumpKeyPressed = false;
         }
 
-        // sprinting
+        // walking
         rbComponent.velocity = new Vector3(characterVelocity * horizontalInput, rbComponent.velocity.y, rbComponent.velocity.z);
 
         // crouching
