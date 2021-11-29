@@ -5,13 +5,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Transform checkTouchingGround = null;
+    [SerializeField] private Transform checkTouchingLadder = null;
     [SerializeField] private LayerMask playerMask;
 
     private Rigidbody rbComponent;
     private bool jumpKeyPressed = false;
     private bool crouching = false;
     private bool touchingGround;
-    private bool LadderClimbing;
+    private bool LadderClimbing = false;
+    // FIX: climbing -> walking transition
     private float horizontalInput;
     private int characterVelocity = 5;
 
@@ -78,7 +80,7 @@ public class Player : MonoBehaviour
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
-        if (Physics.OverlapSphere(checkTouchingGround.position, 0.1f, playerMask).Length > 0)
+        if (Physics.OverlapBox(checkTouchingGround.position, new Vector3(0.5f, 0.05f, 0.1f), new Quaternion(1,0,0,0), playerMask).Length > 0)
         {
             touchingGround = true;
         }
@@ -87,8 +89,22 @@ public class Player : MonoBehaviour
             touchingGround = false;
         }
 
+        if (Physics.OverlapBox(checkTouchingLadder.position, new Vector3(0.51f, 0.5f, 0.1f), new Quaternion(1,0,0,0), playerMask).Length > 0)
+        {
+            LadderClimbing = true;
+        }
+        else
+        {
+            LadderClimbing = false;
+        }
+
         // jumping
-        if (jumpKeyPressed && touchingGround)
+        if (jumpKeyPressed && touchingGround && LadderClimbing)
+        {
+            rbComponent.AddForce(new Vector3(0, 1, 0), ForceMode.VelocityChange);
+            jumpKeyPressed = false;
+        }
+        else if (jumpKeyPressed && touchingGround)
         {
             rbComponent.AddForce(new Vector3(0, 7, 0), ForceMode.VelocityChange);
             jumpKeyPressed = false;
@@ -165,8 +181,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    // pregleda èe se dotikaš lestve
-    private void OnTriggerEnter(Collider other) => LadderClimbing = true;
-
-    private void OnTriggerExit(Collider other) => LadderClimbing = false;
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
+    }
 }
