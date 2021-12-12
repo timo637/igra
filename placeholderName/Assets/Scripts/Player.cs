@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform checkTouchingGround = null;
     [SerializeField] private Transform checkTouchingLadder = null;
     [SerializeField] private LayerMask playerMask;
+    [SerializeField] private LayerMask playerMask2;
 
     private Rigidbody rbComponent;
     private bool jumpKeyPressed = false;
@@ -89,7 +90,7 @@ public class Player : MonoBehaviour
             touchingGround = false;
         }
 
-        if (Physics.OverlapBox(checkTouchingLadder.position, new Vector3(0.5f, 0.5f, 0.1f), new Quaternion(1,0,0,0), playerMask).Length > 0)
+        if (Physics.OverlapBox(checkTouchingLadder.position, new Vector3(0.5f, 0.5f, 0.1f), new Quaternion(1,0,0,0), playerMask2).Length > 0)
         {
             LadderClimbing = true;
         }
