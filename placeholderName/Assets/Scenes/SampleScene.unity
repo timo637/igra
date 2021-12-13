@@ -245,8 +245,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101079888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.91, y: 8.5945, z: 0.00096440315}
-  m_LocalScale: {x: 0.07685, y: 15.938211, z: 1}
+  m_LocalPosition: {x: -14.91, y: 8.5824, z: 0.00096440315}
+  m_LocalScale: {x: 0.07685, y: 15.914304, z: 1}
   m_Children: []
   m_Father: {fileID: 1661885335}
   m_RootOrder: 1
@@ -898,10 +898,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkTouchingGround: {fileID: 1296836059}
   checkTouchingLadder: {fileID: 1253807712}
-  playerMask:
+  GroundCheck:
     serializedVersion: 2
-    m_Bits: 183
-  playerMask2:
+    m_Bits: 439
+  LadderCheck:
     serializedVersion: 2
     m_Bits: 128
 --- !u!54 &1456124912

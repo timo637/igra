@@ -6,8 +6,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Transform checkTouchingGround = null;
     [SerializeField] private Transform checkTouchingLadder = null;
-    [SerializeField] private LayerMask playerMask;
-    [SerializeField] private LayerMask playerMask2;
+    [SerializeField] private LayerMask GroundCheck;
+    [SerializeField] private LayerMask LadderCheck;
 
     private Rigidbody rbComponent;
     private bool jumpKeyPressed = false;
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
     // FixedUpdate is called once per physics frame
     void FixedUpdate()
     {
-        if (Physics.OverlapBox(checkTouchingGround.position, new Vector3(0.4999f, 0.05f, 0.1f), new Quaternion(1,0,0,0), playerMask).Length > 0)
+        if (Physics.OverlapBox(checkTouchingGround.position, new Vector3(0.4999f, 0.05f, 0.1f), new Quaternion(1,0,0,0), GroundCheck).Length > 0)
         {
             touchingGround = true;
         }
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             touchingGround = false;
         }
 
-        if (Physics.OverlapBox(checkTouchingLadder.position, new Vector3(0.5f, 0.5f, 0.1f), new Quaternion(1,0,0,0), playerMask2).Length > 0)
+        if (Physics.OverlapBox(checkTouchingLadder.position, new Vector3(0.5f, 1, 0.1f), new Quaternion(1,0,0,0), LadderCheck).Length > 0)
         {
             LadderClimbing = true;
         }
